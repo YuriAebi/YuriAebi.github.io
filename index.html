@@ -1,15 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
-    <title>My first website</title>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo-Liste</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            margin: 0;
+        }
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+        }
+        button {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
+<body>
+<header>
+    <h1>ToDo</h1>
+</header>
+<main>
+    <h2>Aufgaben für diese Woche</h2>
+    <ul id="todo-list">
 
-<body style="background: chartreuse">
-    <h1 style="color: red">Erste Zeile</h1>
-        <br>
-    <hr>
-    <h3 style="color: darkorange">Zweite Zeile</h3>
+    </ul>
+    <form id="todo-form">
+        <input type="text" id="task" placeholder="Neue Aufgabe hinzufügen" required>
+        <button type="submit">Hinzufügen</button>
+    </form>
+</main>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const todoForm = document.getElementById('todo-form');
+        const todoList = document.getElementById('todo-list');
+
+        todoForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const taskInput = document.getElementById('task');
+            const task = taskInput.value;
+
+            // Füge die Aufgabe zur Liste hinzu
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `<span>${task}</span> <button class="delete">Löschen</button>`;
+            todoList.appendChild(listItem);
+
+            // Leere das Eingabefeld
+            taskInput.value = '';
+
+            // Füge die Löschfunktion hinzu
+            const deleteButton = listItem.querySelector('.delete');
+            deleteButton.addEventListener('click', function() {
+                todoList.removeChild(listItem);
+            });
+        });
+    });
+</script>
 </body>
-
 </html>
